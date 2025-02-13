@@ -56,8 +56,6 @@ class LinkedList {
   }
 
   //1) Find Middle Node
-  // Implement a member function called findMiddleNode() that finds and returns the middle node of the linked list.
-
   // Output:
   // Return the middle node of the linked list.
   // If the list has an even number of nodes, return the second middle node (the one closer to the end).
@@ -67,34 +65,45 @@ class LinkedList {
   // You can only traverse the linked list once.
 
   // Example 1:
-  // Suppose you have a LinkedList object, list, with the following values:
   // 1 -> 2 -> 3 -> 4 -> 5 (5 / 2 = 2)
   // After calling the findMiddleNode() function:
-
-  // let middle = list.findMiddleNode();
   // The middle node should have the value 3.
 
   // Example 2:
-  // Now suppose you have a LinkedList object, list, with the following values:
   // 1 -> 2 -> 3 -> 4 -> 5 -> 6 (6 / 2 = 3) + 1
-  // After calling the findMiddleNode() function:
-
-  // let middle = list.findMiddleNode();
   // The middle node should have the value 4.
 
+  //   1. Initialize slow pointer to the head of the list
+
+  //   2. Initialize fast pointer to the head of the list
+
+  //   3. Loop while fast pointer is not null and fast pointer's next node is not null
+  //    a. Move slow pointer one step ahead in the list
+  //    b. Move fast pointer two steps ahead in the list
+
+  // 4. Return slow pointer (middle node found)
+
   findMiddleNode() {
-    const length = Math.floor(this.tail.value / 2);
-    let middle = this.head;
+    if (!this) return null;
+    if (this.head === this.tail) return this.head;
 
-    for (let i = 0; i < length - 1; i++) {
-      middle = middle.next;
+    let slow = this.head;
+    let fast = this.head;
+
+    while (fast && fast.next) {
+      slow = slow.next;
+      fast = fast.next;
+
+      if (fast.next) fast = fast.next;
     }
 
-    if (length % 2 == 1) {
-      middle = middle.next;
-    }
+    return slow;
 
-    return middle;
+    //   3. Loop while fast pointer is not null and fast pointer's next node is not null
+    //    a. Move slow pointer one step ahead in the list
+    //    b. Move fast pointer two steps ahead in the list
+
+    // 4. Return slow pointer (middle node found)
   }
 }
 
