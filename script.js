@@ -98,12 +98,49 @@ class LinkedList {
     }
 
     return slow;
+  }
+  //2) Find Kth Node From End
+  // Output:
+  // Return the kth node from the end of the linked list.
+  // If the value of k is greater than or equal to the number of nodes in the list, return null.
 
-    //   3. Loop while fast pointer is not null and fast pointer's next node is not null
-    //    a. Move slow pointer one step ahead in the list
-    //    b. Move fast pointer two steps ahead in the list
+  // Constraints:
+  // You are not allowed to use any additional data structures (such as arrays) or modify the existing data structure.
+  // You can only traverse the linked list once.
 
-    // 4. Return slow pointer (middle node found)
+  // Example 1:
+  // Suppose you have a LinkedList object, list, with the following values:
+  // 1 -> 2 -> 3 -> 4 -> 5
+
+  // After calling the findKthFromEnd(2) function:
+  // let kthNode = list.findKthFromEnd(2);
+  // The kthNode should have the value 4.
+
+  // Example 2:
+  // Now suppose you have a LinkedList object, list, with the following values: 1 -> 2 -> 3 -> 4 -> 5 -> 6
+
+  // After calling the findKthFromEnd(4) function:
+  // let kthNode = list.findKthFromEnd(4);
+  // The kthNode should have the value 3.
+
+  findKthFromEnd(k) {
+    if (!this || k <= 0) return null;
+    if (this.head === this.tail) return this.head;
+
+    let fast = this.head;
+    let slow = this.head;
+
+    while (fast !== null) {
+      fast = fast.next;
+
+      if (k) {
+        k--;
+      } else {
+        slow = slow.next;
+      }
+    }
+
+    return slow;
   }
 }
 
@@ -113,8 +150,8 @@ myLinkedList.push(3);
 myLinkedList.push(4);
 myLinkedList.push(5);
 myLinkedList.printList();
-console.log(myLinkedList.findMiddleNode());
+console.log(myLinkedList.findKthFromEnd(2));
 
 myLinkedList.push(6);
 myLinkedList.printList();
-console.log(myLinkedList.findMiddleNode());
+console.log(myLinkedList.findKthFromEnd(2));
