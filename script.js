@@ -12,6 +12,7 @@ class LinkedList {
     const newNode = new Node(value);
     this.head = newNode;
     this.tail = this.head;
+    this.length = 1;
   }
 
   printList() {
@@ -49,10 +50,12 @@ class LinkedList {
     if (!this.head) {
       this.head = newNode;
       this.tail = newNode;
+      this;
     } else {
       this.tail.next = newNode;
       this.tail = newNode;
     }
+    this.length++;
   }
 
   //1) Find Middle Node
@@ -263,62 +266,61 @@ class LinkedList {
 
     return true;
   }
+
+  // LL: Binary to Decimal ( ** Interview Question)
+  // You have a linked list where each node represents a binary digit (0 or 1). The goal of the binaryToDecimal function is to convert this binary number, represented by the linked list, into its decimal equivalent.
+
+  // How Binary to Decimal Conversion Works:
+  // In binary-to-decimal conversion, each position of a binary number corresponds to a specific power of 2, starting from the rightmost digit.
+
+  // The rightmost digit is multiplied by 2^0 (which equals 1).
+  // The next digit to the left is multiplied by 2^1 (which equals 2).
+  // The digit after that is multiplied by 2^2 (which equals 4). ... and so on.
+
+  // To find the decimal representation:
+  // Multiply each binary digit by its corresponding power of 2 value.
+  // Sum up all these products.
+
+  // Example Execution with Binary 101:
+  // Start with num = 0.
+
+  // Process 1 (from the head of the linked list): num = 0 * 2 + 1 = 1
+
+  // Process 0: num = 1 * 2 + 0 = 2
+
+  // Process 1: num = 2 * 2 + 1 = 5
+
+  // Return num, which is 5.
+
+  // Steps Involved in the Function:
+  // A variable num is initialized to 0, which will store our computed decimal number.
+  // Starting from the head of the linked list (the leftmost binary digit), iterate through each node until the end.
+  // For every node, double the current value of num (this is analogous to shifting in binary representation). Then, add the binary digit of the current node.
+  // Move to the next node and repeat until you've visited all nodes.
+  // Return the value in num, which now represents the decimal value of the binary number in the linked list.
+
+  binaryToDecimal() {
+    let num = 0;
+    let pointer = this.head;
+
+    for (let i = 1; i <= this.length; i++) {
+      //console.log(`${pointer.value} is the pointer value`);
+
+      num = num * 2;
+      num += pointer.value;
+      //console.log(`num is ${num} and i is ${i}`);
+
+      pointer = pointer.next;
+    }
+
+    return num;
+  }
 }
 
 //TEST CASE 1
-let myLinkedList = new LinkedList(4);
-myLinkedList.push(11);
-myLinkedList.push(3);
-myLinkedList.push(23);
-myLinkedList.push(7);
+const myLL = new LinkedList(1);
+myLL.push(1);
+myLL.push(0);
+myLL.push(0);
 
-console.log("Original list (without loop):");
-myLinkedList.printList();
-
-console.log(`\nHas loop? ${myLinkedList.hasLoop()}`);
-
-// Create a loop by linking tail to the second node
-myLinkedList.tail.next = myLinkedList.head.next;
-
-//console.log(`\nHas loop? ${myLinkedList.hasLoop()}`);
-
-//TEST 2
-let myLinkedList2 = new LinkedList(4);
-myLinkedList2.push(11);
-myLinkedList2.push(3);
-myLinkedList2.push(23);
-myLinkedList2.push(7);
-
-console.log("Original list (without loop):");
-myLinkedList2.printList();
-
-console.log(`\nHas loop? ${myLinkedList2.hasLoop()}`);
-
-// Create a loop by linking tail to the head
-myLinkedList2.tail.next = myLinkedList2.head;
-
-//console.log(`\nHas loop? ${myLinkedList2.hasLoop()}`);
-
-// //TEST 3
-// let myLinkedList3 = new LinkedList(4);
-// myLinkedList3.push(11);
-// myLinkedList3.push(3);
-// myLinkedList3.push(23);
-// myLinkedList3.push(7);
-
-// console.log("Original list (without loop):");
-// myLinkedList2.printList();
-
-// console.log(`\nHas loop? ${myLinkedList3.hasLoop()}`);
-
-// //Disconnecting the tail from the linked list
-// let pointer = myLinkedList3.head;
-
-// while (pointer !== null) {
-//   if (pointer.next === myLinkedList3.tail) {
-//     pointer.next = myLinkedList3.head;
-//   }
-//   pointer = pointer.next;
-// }
-
-// console.log(`\nHas loop? ${myLinkedList3.hasLoop()}`);
+console.log(myLL.binaryToDecimal());
