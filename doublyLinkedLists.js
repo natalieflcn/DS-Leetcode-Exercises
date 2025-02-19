@@ -1,3 +1,5 @@
+"use strict mode";
+
 class Node {
   constructor(value) {
     this.value = value;
@@ -95,32 +97,70 @@ class DoublyLinkedList {
     }
     return this;
   }
+
+  //2: REVERSE
+  // Implement a member function called reverse() that reverses the nodes of a doubly linked list.
+
+  // Output:
+  // The function should modify the doubly linked list in-place, reversing the order of the nodes.
+
+  // Constraints:
+  // You can only reverse the nodes themselves, not just their values.
+
+  // Example 1:
+  // Suppose you have a DoublyLinkedList object, list, with the following values:
+  // 1 <-> 2 <-> 3 <-> 4 <-> 5
+
+  // After calling the reverse() function:
+  // list.reverse();
+
+  // The doubly linked list should now have the following values:
+  // 5 <-> 4 <-> 3 <-> 2 <-> 1
+  reverse() {
+    if (!this.head) return undefined;
+    if (this.head === this.tail) return;
+
+    let temp = this.tail;
+    this.tail = this.head;
+    this.head = temp;
+
+    let next = temp.prev;
+    let prev = null;
+
+    for (let i = 0; i < this.length; i++) {
+      temp.next = next;
+      temp.prev = prev;
+      prev = temp;
+      temp = next;
+      if (next) {
+        next = next.prev;
+      }
+    }
+    return this;
+  }
 }
 
 let myDoublyLinkedList = new DoublyLinkedList(1);
 myDoublyLinkedList.push(2);
-myDoublyLinkedList.push(3);
-myDoublyLinkedList.push(4);
-myDoublyLinkedList.push(5);
 
 console.log("Original list:");
 myDoublyLinkedList.printList();
 
-myDoublyLinkedList.swapFirstLast();
-console.log("\nList after swapping first and last elements:");
+myDoublyLinkedList.reverse();
+console.log("\nList after reversing:");
 myDoublyLinkedList.printList();
 
 // Create a new list with an even number of elements
 let myDoublyLinkedList2 = new DoublyLinkedList(1);
 myDoublyLinkedList2.push(2);
-myDoublyLinkedList2.push(3);
-myDoublyLinkedList2.push(4);
+myDoublyLinkedList2.push(-3);
+myDoublyLinkedList2.push(-4);
 myDoublyLinkedList2.push(5);
 myDoublyLinkedList2.push(6);
 
 console.log("\nOriginal list 2:");
 myDoublyLinkedList2.printList();
 
-myDoublyLinkedList2.swapFirstLast();
-console.log("\nList 2 after swapping first and last elements:");
+myDoublyLinkedList2.reverse();
+console.log("\nList 2 after reversing:");
 myDoublyLinkedList2.printList();
