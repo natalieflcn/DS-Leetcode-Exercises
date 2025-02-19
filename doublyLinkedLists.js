@@ -138,29 +138,68 @@ class DoublyLinkedList {
     }
     return this;
   }
+
+  //3.
+  //Implement a member function called isPalindrome() that checks if a doubly linked list is a palindrome.
+
+  // A doubly linked list is a palindrome if the sequence of values read from the head to the tail is the same as the sequence of values read from the tail to the head.
+
+  // Output:
+  // Return a boolean value: true if the doubly linked list is a palindrome, and false otherwise.
+
+  // Constraints:
+  // You can only traverse the doubly linked list once.
+
+  // Example 1:
+
+  // Suppose you have a DoublyLinkedList object, list, with the following values:
+  // 1 <-> 2 <-> 3 <-> 2 <-> 1
+
+  // result should be true, as the doubly linked list is a palindrome.
+
+  // Example 2:
+  // Now suppose you have a DoublyLinkedList object, list, with the following values:
+  // 3 <-> 1 <-> 2
+
+  // After calling the isPalindrome() function:
+  // const result = list.isPalindrome();
+  // result should be false, as the doubly linked list is not a palindrome.
+  isPalindrome() {
+    let palindrome = true;
+    let beginning = this.head;
+    let end = this.tail;
+
+    while (beginning) {
+      if (beginning.value === end.value) {
+        beginning = beginning.next;
+        end = end.prev;
+        continue;
+      } else {
+        palindrome = false;
+        break;
+      }
+    }
+
+    return palindrome;
+  }
 }
 
 let myDoublyLinkedList = new DoublyLinkedList(1);
 myDoublyLinkedList.push(2);
+myDoublyLinkedList.push(3);
+myDoublyLinkedList.push(2);
+myDoublyLinkedList.push(1);
 
-console.log("Original list:");
+console.log("List 1:");
 myDoublyLinkedList.printList();
+console.log("Is List 1 a palindrome? " + myDoublyLinkedList.isPalindrome());
 
-myDoublyLinkedList.reverse();
-console.log("\nList after reversing:");
-myDoublyLinkedList.printList();
-
-// Create a new list with an even number of elements
 let myDoublyLinkedList2 = new DoublyLinkedList(1);
 myDoublyLinkedList2.push(2);
-myDoublyLinkedList2.push(-3);
-myDoublyLinkedList2.push(-4);
+myDoublyLinkedList2.push(3);
+myDoublyLinkedList2.push(4);
 myDoublyLinkedList2.push(5);
-myDoublyLinkedList2.push(6);
 
-console.log("\nOriginal list 2:");
+console.log("\nList 2:");
 myDoublyLinkedList2.printList();
-
-myDoublyLinkedList2.reverse();
-console.log("\nList 2 after reversing:");
-myDoublyLinkedList2.printList();
+console.log("Is List 2 a palindrome? " + myDoublyLinkedList2.isPalindrome());
