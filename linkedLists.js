@@ -317,10 +317,4 @@ class LinkedList {
   }
 }
 
-//TEST CASE 1
-const myLL = new LinkedList(1);
-myLL.push(1);
-myLL.push(0);
-myLL.push(0);
-
-console.log(myLL.binaryToDecimal());
+//DOUBLY LINKED LISTS
