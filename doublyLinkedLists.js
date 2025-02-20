@@ -182,24 +182,91 @@ class DoublyLinkedList {
 
     return palindrome;
   }
+
+  //4: SWAP NODES IN PAIRS
+
+  // The function should modify the doubly linked list in-place, swapping every two adjacent nodes.
+
+  // Constraints:
+  // You can only traverse the doubly linked list once.
+  // You must solve the problem WITHOUT MODIFYING THE VALUES in the list's nodes (i.e., only the nodes' prev and next pointers may be changed.)
+
+  // Example 1:
+  // Suppose you have a DoublyLinkedList object, list, with the following values:
+  // 1 <-> 2 <-> 3 <-> 4 <-> 5
+
+  // The doubly linked list should now have the following values:
+  // 2 <-> 1 <-> 4 <-> 3 <-> 5
+
+  // Example 2:
+  // Now suppose you have a DoublyLinkedList object, list, with the following values:
+  // 3 <-> 1 <-> 2 <-> 4
+
+  // The doubly linked list should now have the following values:
+  // 1 <-> 3 <-> 4 <-> 2
+
+  swapPairs() {
+    //Need to re-factor
+    if (!this.head || this.head === this.tail) return;
+
+    let temp1 = this.head;
+    let temp2 = temp1.next;
+    let connector = temp1.prev;
+    const updatePointers = function () {
+      temp1.next = temp2.next;
+      temp2.prev = connector;
+      temp1.prev = temp2;
+      temp2.next = temp1;
+
+      if (connector) {
+        connector.next = temp2;
+      }
+    };
+
+    while ((temp1.next && temp2) || this.length == 2) {
+      updatePointers();
+
+      if (temp2.prev === null) {
+        this.head = temp2;
+
+        if (this.length === 2) {
+          break;
+        }
+      }
+
+      connector = temp1;
+      temp1 = temp1.next;
+      temp2 = temp1.next;
+
+      if (this.length % 2 === 0 && !temp2.next) {
+        updatePointers();
+      }
+    }
+
+    return this;
+  }
 }
 
 let myDoublyLinkedList = new DoublyLinkedList(1);
 myDoublyLinkedList.push(2);
-myDoublyLinkedList.push(3);
-myDoublyLinkedList.push(2);
-myDoublyLinkedList.push(1);
 
-console.log("List 1:");
+console.log("Original List 1:");
 myDoublyLinkedList.printList();
-console.log("Is List 1 a palindrome? " + myDoublyLinkedList.isPalindrome());
+
+myDoublyLinkedList.swapPairs();
+console.log("\nList 1 after swapping pairs:");
+myDoublyLinkedList.printList();
 
 let myDoublyLinkedList2 = new DoublyLinkedList(1);
 myDoublyLinkedList2.push(2);
 myDoublyLinkedList2.push(3);
 myDoublyLinkedList2.push(4);
 myDoublyLinkedList2.push(5);
+myDoublyLinkedList2.push(6);
 
-console.log("\nList 2:");
+console.log("\nOriginal List 2:");
 myDoublyLinkedList2.printList();
-console.log("Is List 2 a palindrome? " + myDoublyLinkedList2.isPalindrome());
+
+myDoublyLinkedList2.swapPairs();
+console.log("\nList 2 after swapping pairs:");
+myDoublyLinkedList2.printList();
