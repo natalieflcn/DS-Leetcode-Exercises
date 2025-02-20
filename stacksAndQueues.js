@@ -55,37 +55,6 @@ class Stack {
   }
 }
 //SORT STACK
-// Implement a function called sortStack() that takes a stack of integers as input and sorts the stack in ascending order (with the smallest element on top) using an additional temporary stack.
-
-// Input:
-// A Stack object stack containing integer values.
-
-// Output:
-// The function should modify the original input stack, sorting its elements in ascending order.
-
-// Constraints:
-// You must use the provided Stack class to store and manipulate the elements.
-// You cannot use any other data structures or built-in sorting methods for this task.
-//
-// Pseudo Code:
-
-// b. Procedure:
-
-// i. Create a new Stack instance called additionalStack
-
-// ii. Loop while the input stack is not empty
-
-// 1. Pop the top element from the input stack and store it in a variable called temp
-
-// 2. Loop while additionalStack is not empty and the top element of additionalStack is greater than temp
-
-// a. Pop the top element from additionalStack and push it onto the input stack
-
-// 3. Push temp onto additionalStack
-
-// iii. Loop while additionalStack is not empty
-
-// 1. Pop the top element from additionalStack and push it onto the input stack
 
 function sortStack(stack) {
   const additionalStack = new Stack();
@@ -104,25 +73,57 @@ function sortStack(stack) {
   }
 }
 
-// Example 1:
-// Suppose you have a Stack object, stack, with the following values:
-// [5, 3, 1, 4, 2]
+// QUEUE ASSIGNMENTS
+//ENQUEUE
 
-// After calling the sortStack() function:
-// sortStack(stack);
+//DEQUEUE
+// Implement a method called dequeue() for a MyQueue class that removes and returns the element from the front of the queue. The MyQueue class should use two Stack objects to store and manipulate the elements.
 
-// The stack should now have the following values:
-// [5, 4, 3, 2, 1]
+// The function should remove the front element from the queue and return its value. If the queue is empty, the function should return null.
 
-const myStack = new Stack();
-myStack.push(5);
-myStack.push(3);
-myStack.push(1);
-myStack.push(4);
-myStack.push(2);
-console.log("My original Stack:");
-myStack.printStack();
+// Constraints:
+// The MyQueue class should be implemented using two Stack objects provided in the Stack class.
 
-console.log("My Stack after sorting:");
-sortStack(myStack);
-myStack.printStack();
+// You cannot use any other data structures or built-in queue manipulation methods for this task.
+
+class MyQueue {
+  constructor() {
+    this.stack1 = new Stack();
+    this.stack2 = new Stack();
+  }
+
+  peek() {
+    return this.stack1.peek();
+  }
+
+  isEmpty() {
+    return this.stack1.isEmpty();
+  }
+
+  //ENQUEUE
+  enqueue(value) {
+    while (!this.stack1.isEmpty()) {
+      this.stack2.push(this.stack1.pop());
+    }
+
+    this.stack1.push(value);
+
+    while (!this.stack2.isEmpty()) {
+      this.stack1.push(this.stack2.pop());
+    }
+  }
+
+  //DEQUEUE
+  dequeue() {
+    if (this.stack1.isEmpty()) return null;
+
+    return this.stack1.pop();
+  }
+}
+
+const my = new MyQueue();
+my.enqueue(1);
+my.enqueue(2);
+my.enqueue(3);
+
+console.log(my);
