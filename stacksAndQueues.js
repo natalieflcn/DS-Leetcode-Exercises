@@ -73,6 +73,76 @@ function sortStack(stack) {
   }
 }
 
+//REVERSE STRING
+// Implement a function called reverseString() that takes a string as input and returns a new string with its characters reversed, using the Stack class provided.
+
+// Output:
+// The method should return a new string with the characters of the input string reversed. "Hello" should return "olleH"
+
+// Constraints:
+// You must use the provided Stack class to reverse the string.
+// You cannot use built-in string manipulation methods for reversing the string.
+
+function reverseString(string) {
+  const myStack = new Stack();
+
+  for (char in string) {
+    myStack.push(string[char]);
+  }
+
+  let newString = "";
+
+  while (!myStack.isEmpty()) {
+    newString += myStack.pop();
+  }
+
+  return newString;
+}
+
+//PARENTHESE BALANCED
+// Implement a function called isBalancedParentheses() that checks if a given string containing parentheses is balanced or not.
+
+// Input:
+// A string parentheses.
+
+// Output:
+// The function should return a boolean value, true if the input string contains balanced parentheses, and false if not.
+
+// Constraints:
+// You must use the provided Stack class to check if the parentheses are balanced.
+
+// You cannot use built-in string manipulation methods for this task.
+
+function isBalancedParentheses(parentheses) {
+  if (parentheses.length % 2 !== 0) {
+    return false;
+  }
+  const left = new Stack();
+  const right = new Stack();
+  let isBalanced = true;
+
+  for (let i = 0; i < Math.floor(parentheses.length / 2); i++) {
+    left.push(parentheses[i]);
+    right.push(parentheses[parentheses.length - i - 1]);
+  }
+
+  while (!left.isEmpty()) {
+    let temp1 = left.pop();
+    let temp2 = right.pop();
+
+    if (temp1 !== temp2) {
+      continue;
+    } else {
+      isBalanced = false;
+      break;
+    }
+  }
+
+  console.log(left, right);
+
+  return isBalanced;
+}
+
 // QUEUE ASSIGNMENTS
 //ENQUEUE
 
@@ -85,6 +155,12 @@ function sortStack(stack) {
 // The MyQueue class should be implemented using two Stack objects provided in the Stack class.
 
 // You cannot use any other data structures or built-in queue manipulation methods for this task.
+
+console.log(isBalancedParentheses("((()))"));
+console.log(isBalancedParentheses("(()"));
+console.log(isBalancedParentheses("(()())"));
+console.log(isBalancedParentheses(")("));
+console.log(isBalancedParentheses(""));
 
 class MyQueue {
   constructor() {
@@ -120,10 +196,3 @@ class MyQueue {
     return this.stack1.pop();
   }
 }
-
-const my = new MyQueue();
-my.enqueue(1);
-my.enqueue(2);
-my.enqueue(3);
-
-console.log(my);
