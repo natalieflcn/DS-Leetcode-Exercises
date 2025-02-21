@@ -114,32 +114,44 @@ function reverseString(string) {
 // You cannot use built-in string manipulation methods for this task.
 
 function isBalancedParentheses(parentheses) {
-  if (parentheses.length % 2 !== 0) {
-    return false;
-  }
-  const left = new Stack();
-  const right = new Stack();
+  // WORKING SOLUTION -- But Too Long, Inefficient
+  // if (parentheses.length % 2 !== 0) {
+  //   return false;
+  // }
+  // const left = new Stack();
+  // const right = new Stack();
+  // let isBalanced = true;
+  // for (let i = 0; i < Math.floor(parentheses.length / 2); i++) {
+  //   left.push(parentheses[i]);
+  //   right.push(parentheses[parentheses.length - i - 1]);
+  // }
+  // while (!left.isEmpty()) {
+  //   let temp1 = left.pop();
+  //   let temp2 = right.pop();
+  //   if (temp1 !== temp2) {
+  //     continue;
+  //   } else {
+  //     isBalanced = false;
+  //     break;
+  //   }
+  // }
+
+  const myStack = new Stack();
   let isBalanced = true;
 
-  for (let i = 0; i < Math.floor(parentheses.length / 2); i++) {
-    left.push(parentheses[i]);
-    right.push(parentheses[parentheses.length - i - 1]);
-  }
-
-  while (!left.isEmpty()) {
-    let temp1 = left.pop();
-    let temp2 = right.pop();
-
-    if (temp1 !== temp2) {
-      continue;
+  for (let p in parentheses) {
+    if (p === "(") {
+      myStack.push(p);
     } else {
-      isBalanced = false;
-      break;
+      if (myStack.isEmpty() || myStack.peek() !== ")") {
+        isBalanced = false;
+        continue;
+      }
+      myStack.pop();
     }
   }
 
-  console.log(left, right);
-
+  //isBalanced = myStack.isEmpty() ? true : false;
   return isBalanced;
 }
 
