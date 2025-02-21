@@ -19,16 +19,16 @@ function itemInCommon(arr1, arr2) {
   let inCommon = false;
 
   for (let i = 0; i < arr1.length; i++) {
-    obj.arr[i] = true;
+    obj[arr1[i]] = true;
   }
 
   for (let i = 0; i < arr2.length; i++) {
-    if (obj.get(arr2[i])) {
-      inCommon = true;
+    if (obj[arr2[i]]) {
+      return true;
     }
   }
 
-  return inCommon;
+  return false;
 }
 
 // Your challenge is to solve this problem using either a Map or an Object. Feel free to try both methods for extra practice!
