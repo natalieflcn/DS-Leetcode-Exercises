@@ -12,11 +12,25 @@
 // You can use two types of hash tables to solve this problem in JavaScript:
 
 // Map: A built-in object that allows you to store key-value pairs.
+function itemInCommon2(arr1, arr2) {
+  const myMap = new Map();
+
+  for (let i = 0; i < arr1.length; i++) {
+    myMap.set(arr1[i], true);
+  }
+
+  for (let i = 0; i < arr2.length; i++) {
+    if (myMap.has(arr2[i])) {
+      return true;
+    }
+  }
+
+  return false;
+}
 
 // Object: The most basic data structure in JavaScript, which can also act like a hash table for key-value storage.
 function itemInCommon(arr1, arr2) {
   let obj = {};
-  let inCommon = false;
 
   for (let i = 0; i < arr1.length; i++) {
     obj[arr1[i]] = true;
@@ -55,7 +69,7 @@ function itemInCommon(arr1, arr2) {
 // ---------------
 console.log("One Common Item:");
 console.log("Input: [1, 3, 5], [2, 4, 5]");
-console.log("Output: ", itemInCommon([1, 3, 5], [2, 4, 5]));
+console.log("Output: ", itemInCommon2([1, 3, 5], [2, 4, 5]));
 console.log("---------------");
 
 // ---------------
@@ -63,7 +77,7 @@ console.log("---------------");
 // ---------------
 console.log("No Common Items:");
 console.log("Input: [1, 3, 5], [2, 4, 6]");
-console.log("Output: ", itemInCommon([1, 3, 5], [2, 4, 6]));
+console.log("Output: ", itemInCommon2([1, 3, 5], [2, 4, 6]));
 console.log("---------------");
 
 // ---------------
@@ -71,7 +85,7 @@ console.log("---------------");
 // ---------------
 console.log("Multiple Common Items:");
 console.log("Input: [1, 2, 3], [2, 3, 4]");
-console.log("Output: ", itemInCommon([1, 2, 3], [2, 3, 4]));
+console.log("Output: ", itemInCommon2([1, 2, 3], [2, 3, 4]));
 console.log("---------------");
 
 // ---------------
@@ -79,7 +93,7 @@ console.log("---------------");
 // ---------------
 console.log("Empty Arrays:");
 console.log("Input: [], []");
-console.log("Output: ", itemInCommon([], []));
+console.log("Output: ", itemInCommon2([], []));
 console.log("---------------");
 
 // ---------------
@@ -87,5 +101,5 @@ console.log("---------------");
 // ---------------
 console.log("One Empty Array:");
 console.log("Input: [1, 2, 3], []");
-console.log("Output: ", itemInCommon([1, 2, 3], []));
+console.log("Output: ", itemInCommon2([1, 2, 3], []));
 console.log("---------------");
