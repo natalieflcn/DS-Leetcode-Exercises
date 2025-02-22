@@ -3,15 +3,6 @@
 
 // If there is at least one common element between the two arrays, your function should return true. If there are no common elements, the function should return false.
 
-// Examples:
-
-// itemInCommon([1, 3, 5], [2, 4, 5]) should return true because both arrays contain the number 5.
-
-// itemInCommon([1, 3, 5], [2, 4, 6]) should return false because there are no common items.
-
-// You can use two types of hash tables to solve this problem in JavaScript:
-
-// Map: A built-in object that allows you to store key-value pairs.
 function itemInCommon2(arr1, arr2) {
   const myMap = new Map();
 
@@ -45,61 +36,48 @@ function itemInCommon(arr1, arr2) {
   return false;
 }
 
-// Your challenge is to solve this problem using either a Map or an Object. Feel free to try both methods for extra practice!
+// 52) HT: Find Duplicates ( ** Interview Question)
+// In this exercise, you are required to write a JavaScript function called findDuplicates. This function will take an array of numbers as its only parameter. Your goal is to identify and return all the numbers that appear more than once in the array.
 
-//   +=====================================================+
-//   |                WRITE YOUR CODE HERE                 |
-//   | Description:                                        |
-//   | - This function checks if two arrays have at least  |
-//   |   one item in common.                               |
-//   |                                                     |
-//   | Return type: bool                                   |
-//   | - Returns true if an item is found in both arrays.  |
-//   | - Otherwise, returns false.                         |
-//   |                                                     |
-//   | Tips:                                               |
-//   | - You can use either a Map or an object to store    |
-//   |   elements from the first array for quick lookup.   |
-//   | - Example with Map: myMap.set(i, true);             |
-//   | - Example with object: obj[arr1[i]] = true;         |
-//   +=====================================================+
+// The function should return a new array containing the duplicate numbers. The function should return an empty array if there are no duplicate numbers.
 
-// ---------------
-// One Common Item
-// ---------------
-console.log("One Common Item:");
-console.log("Input: [1, 3, 5], [2, 4, 5]");
-console.log("Output: ", itemInCommon2([1, 3, 5], [2, 4, 5]));
-console.log("---------------");
+// Map: A built-in object that lets you store key-value pairs in an organized manner.
+function findDuplicates(arr) {
+  const myMap = new Map();
+  const newArr = [];
 
-// ---------------
-// No Common Items
-// ---------------
-console.log("No Common Items:");
-console.log("Input: [1, 3, 5], [2, 4, 6]");
-console.log("Output: ", itemInCommon2([1, 3, 5], [2, 4, 6]));
-console.log("---------------");
+  for (let i = 0; i < arr.length; i++) {
+    if (myMap.has(arr[i])) {
+      myMap.set(arr[i], myMap.get(arr[i]) + 1);
+    } else {
+      myMap.set(arr[i], 1);
+    }
+  }
 
-// ---------------
-// Multiple Common Items
-// ---------------
-console.log("Multiple Common Items:");
-console.log("Input: [1, 2, 3], [2, 3, 4]");
-console.log("Output: ", itemInCommon2([1, 2, 3], [2, 3, 4]));
-console.log("---------------");
+  myMap.forEach((value, key) => {
+    if (value > 1) {
+      newArr.push(key);
+    }
+  });
 
-// ---------------
-// Empty Arrays
-// ---------------
-console.log("Empty Arrays:");
-console.log("Input: [], []");
-console.log("Output: ", itemInCommon2([], []));
-console.log("---------------");
+  return newArr;
+}
 
-// ---------------
-// One Empty Array
-// ---------------
-console.log("One Empty Array:");
-console.log("Input: [1, 2, 3], []");
-console.log("Output: ", itemInCommon2([1, 2, 3], []));
-console.log("---------------");
+// 53) HT: First Non-Repeating Character ( ** Interview Question)
+// In this exercise, your task is to write a JavaScript function named firstNonRepeatingChar.
+
+// The function will take a string as its only parameter. Your goal is to find and return the first character in the string that does not repeat. If every character in the string repeats, or if the string is empty, the function should return null.
+
+// Examples:
+
+// firstNonRepeatingChar("aabbcc") should return null because all the characters appear more than once.
+
+// firstNonRepeatingChar("aabbcde") should return 'd' because it's the first non-repeating character.
+
+// You can solve this problem using either of the two types of hash tables available in JavaScript:
+
+// Map: A built-in object that lets you store key-value pairs in an organized manner.
+
+// Object: A fundamental data structure in JavaScript that can also be used as a hash table for storing key-value pairs.
+
+// Feel free to try solving the exercise using both a Map and an Object to get the hang of using these different types of hash tables.
