@@ -229,29 +229,39 @@ function twoSum2(nums, target) {
   return [];
 }
 
-console.log("Duplicate Numbers:");
-console.log("Input: [3, 3, 11, 15], Target: 6");
-console.log("Output: ", JSON.stringify(twoSum2([3, 3, 11, 15], 6)));
-console.log("---------------");
+// 56) HT: Subarray Sum ( ** Interview Question)
+// function named subarraySum.
 
-// Loop through nums Array
-// Iterate over each number in nums and its index (i).
+// This function should take in an array of integers (nums) and another integer (target).
 
-// Calculate the complement (complement) of each number with respect to the target.
+// Your goal is to find a contiguous subarray whose elements sum up to the given target integer. The function should return an array containing the starting and ending indices of the subarray. If no such subarray exists, return an empty array.
 
-// Check and Update Storage Structure
+// Examples:
 
-// If the complement is present in the storage structure:
+// subarraySum([1, 4, 20, 3, 10, 5], 33) should return [2, 4] because the subarray from index 2 to index 4 sums to 33.
 
-// Return an array containing the index of the complement and the current index (i).
+// subarraySum([1, 2, 3], 3) should return [0, 1] because the subarray from index 0 to index 1 sums to 3.
 
-// Else:
+function subarraySum(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i];
+    goal = target - num;
 
-// Store the current number (num) and its index (i) in the storage structure.
+    for (let j = i, sum = 0; j < nums.length; j++) {
+      sum += nums[j];
+      console.log(sum);
 
-// For the Map solution: Use .has() to check for existence and .get() to fetch the index. Update using .set().
+      if (sum === target) {
+        return [i, j];
+      }
 
-// For the Object solution: Use .hasOwnProperty() to check for existence and bracket notation to fetch and update.
-// ---------------
-// Duplicate Numbers
-// ---------------
+      if (sum > target) {
+        break;
+      }
+    }
+  }
+
+  return [];
+}
+
+console.log(subarraySum([1, 2, 3], 3));
