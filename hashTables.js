@@ -68,11 +68,103 @@ function findDuplicates(arr) {
 
 // The function will take a string as its only parameter. Your goal is to find and return the first character in the string that does not repeat. If every character in the string repeats, or if the string is empty, the function should return null.
 
+// You can solve this problem using either of the two types of hash tables available in JavaScript:
+
+// Map: A built-in object that lets you store key-value pairs in an organized manner.
+
+function firstNonRepeatingChar(string) {
+  const myMap = new Map();
+  const newArr = [];
+
+  for (let i = 0; i < string.length; i++) {
+    if (myMap.has(string[i])) {
+      myMap.set(string[i], myMap.get(string[i]) + 1);
+    } else {
+      myMap.set(string[i], 1);
+    }
+  }
+
+  myMap.forEach((value, key) => {
+    if (value === 1) {
+      newArr.push(key);
+    }
+  });
+
+  if (newArr[0]) return newArr[0];
+
+  return null;
+}
+
+// 54) HT: Group Anagrams ( ** Interview Question)
+// In this exercise, your task is to write a JavaScript function named groupAnagrams.
+
+// The function will take an array of strings as its parameter. Your goal is to group anagrams from the given list of strings. An anagram is a word or phrase that forms a different word or phrase when the letters are rearranged.
+
+// Your function should return an array of arrays, where each inner array contains a group of anagram strings.
+
+function groupAnagrams(strings) {
+  const anagramGroups = new Map();
+  const chars = [];
+  let str = "";
+
+  for (string in strings) {
+    chars.push([...strings[string]]);
+
+    chars[string].sort();
+
+    str += chars[string] + ",";
+  }
+
+  for (char in chars) {
+    if (anagramGroups.has(chars[char])) {
+      console.log("hi");
+      continue;
+    } else {
+      anagramGroups.set(chars[char], true);
+    }
+  }
+
+  console.log(anagramGroups);
+  console.log(chars);
+  console.log(str);
+}
+
+// Loop through Each String in strings Array
+// Convert each string (string) to an array of its characters (chars).
+// Sort the chars array.
+// Join the sorted chars back into a single string (canonical).
+
+// Check and Update Anagram Groups
+
+// If canonical is already a key in anagramGroups:
+
+// Add the original string to the group associated with that canonical.
+
+// Else:
+
+// Create a new group with string and set it as the value for canonical in anagramGroups.
+
+// For the Map solution: Use .has() to check for existence and .get() to fetch the group. Update using .set().
+
+// For the Object solution: Use .hasOwnProperty() to check for existence and bracket notation to fetch and update.
+
+// Prepare Final Result
+
+// Convert the values in anagramGroups to an array and return it.
+
+// For the Map solution: Use Array.from(anagramGroups.values()).
+
+// For the Object solution: Use Object.values(anagramGroups).
+
+// Return Result
+
+// Return the final array of anagram groups.
+//groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]);
 // Examples:
 
-// firstNonRepeatingChar("aabbcc") should return null because all the characters appear more than once.
+// groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat']) should return [ ['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat'] ].
 
-// firstNonRepeatingChar("aabbcde") should return 'd' because it's the first non-repeating character.
+// groupAnagrams(['abc', 'cab', 'bca', 'xyz', 'zyx']) should return [ ['abc', 'cab', 'bca'], ['xyz', 'zyx'] ].
 
 // You can solve this problem using either of the two types of hash tables available in JavaScript:
 
@@ -80,4 +172,48 @@ function findDuplicates(arr) {
 
 // Object: A fundamental data structure in JavaScript that can also be used as a hash table for storing key-value pairs.
 
-// Feel free to try solving the exercise using both a Map and an Object to get the hang of using these different types of hash tables.
+// Your goal is to implement this function using both a Map and an Object to understand the nuances of the syntax of these different hash table types.
+
+// HT: Two Sum ( ** Interview Question)
+// In this exercise, you are tasked with writing a JavaScript function called twoSum.
+
+// The function should accept an array of integers (nums) and an integer (target). Your task is to find two numbers in the array that sum up to the target integer. The function should return an array containing the indices of these two numbers. If no such numbers exist, return an empty array.
+
+// Examples:
+
+// twoSum([2, 7, 11, 15], 9) should return [0, 1] because nums[0] + nums[1] = 2 + 7 = 9.
+
+// twoSum([3, 2, 4], 6) should return [1, 2] because nums[1] + nums[2] = 2 + 4 = 6.
+function twoSum(nums, target) {
+  const solutions = [];
+
+  //Comparing nums to keys
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 0; j < nums.length; j++) {
+      if (j !== i) {
+        const sum = nums[i] + nums[j];
+
+        console.log(sum);
+        if (sum === target) {
+          solutions.push(i);
+          solutions.push(j);
+          break;
+        }
+      }
+    }
+
+    if (solutions.length > 0) {
+      break;
+    }
+  }
+
+  return solutions;
+}
+
+// ---------------
+// Duplicate Numbers
+// ---------------
+console.log("Duplicate Numbers:");
+console.log("Input: [3, 3, 11, 15], Target: 6");
+console.log("Output: ", JSON.stringify(twoSum([3, 3, 11, 15], 6)));
+console.log("---------------");
