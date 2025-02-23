@@ -210,10 +210,48 @@ function twoSum(nums, target) {
   return solutions;
 }
 
+//Map Solution
+// Create an empty storage structure (numMap or numObject) for storing numbers and their indices.
+function twoSum2(nums, target) {
+  const numMap = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i];
+    const complement = target - nums[i];
+
+    if (numMap.has(complement)) {
+      return [numMap.get(complement), i];
+    }
+
+    numMap.set(num, i);
+  }
+
+  return [];
+}
+
+console.log("Duplicate Numbers:");
+console.log("Input: [3, 3, 11, 15], Target: 6");
+console.log("Output: ", JSON.stringify(twoSum2([3, 3, 11, 15], 6)));
+console.log("---------------");
+
+// Loop through nums Array
+// Iterate over each number in nums and its index (i).
+
+// Calculate the complement (complement) of each number with respect to the target.
+
+// Check and Update Storage Structure
+
+// If the complement is present in the storage structure:
+
+// Return an array containing the index of the complement and the current index (i).
+
+// Else:
+
+// Store the current number (num) and its index (i) in the storage structure.
+
+// For the Map solution: Use .has() to check for existence and .get() to fetch the index. Update using .set().
+
+// For the Object solution: Use .hasOwnProperty() to check for existence and bracket notation to fetch and update.
 // ---------------
 // Duplicate Numbers
 // ---------------
-console.log("Duplicate Numbers:");
-console.log("Input: [3, 3, 11, 15], Target: 6");
-console.log("Output: ", JSON.stringify(twoSum([3, 3, 11, 15], 6)));
-console.log("---------------");
