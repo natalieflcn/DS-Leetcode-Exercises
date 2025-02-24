@@ -105,29 +105,37 @@ function firstNonRepeatingChar(string) {
 function groupAnagrams(strings) {
   const anagramGroups = new Map();
   const chars = [];
-  let str = "";
+  const solutions = [];
 
   for (string in strings) {
+    let str = "";
     chars.push([...strings[string]]);
 
     chars[string].sort();
 
-    str += chars[string] + ",";
+    str = chars[string].join();
+    chars[string] = str;
   }
 
-  for (char in chars) {
-    if (anagramGroups.has(chars[char])) {
-      console.log("hi");
-      continue;
-    } else {
-      anagramGroups.set(chars[char], true);
+  for (let i = 0; i < strings.length; i++) {
+    if (!anagramGroups.has(chars[i])) {
+      //If anagram doesn't exist
+      anagramGroups.set(chars[i], []);
     }
+    anagramGroups.get(chars[i]).push(strings[i]);
   }
 
-  console.log(anagramGroups);
-  console.log(chars);
-  console.log(str);
+  anagramGroups.forEach((value, key) => {
+    solutions.push(value);
+  });
+
+  console.log(solutions);
+
+  return solutions;
 }
+console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
+
+// groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat']) should return [ ['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat'] ].
 
 // Loop through Each String in strings Array
 // Convert each string (string) to an array of its characters (chars).
@@ -159,10 +167,8 @@ function groupAnagrams(strings) {
 // Return Result
 
 // Return the final array of anagram groups.
-//groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]);
-// Examples:
 
-// groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat']) should return [ ['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat'] ].
+// Examples:
 
 // groupAnagrams(['abc', 'cab', 'bca', 'xyz', 'zyx']) should return [ ['abc', 'cab', 'bca'], ['xyz', 'zyx'] ].
 
@@ -242,26 +248,51 @@ function twoSum2(nums, target) {
 
 // subarraySum([1, 2, 3], 3) should return [0, 1] because the subarray from index 0 to index 1 sums to 3.
 
+// Initialize Variables
+
+// Create an empty storage structure (sumIndex Map or Object) for storing cumulative sums and their indices.
+
+// Initialize a currentSum variable to 0.
+
+// Store an initial sum of 0 at index -1 in sumIndex.
+
+// Loop through nums Array
+
+// Iterate over each number in nums and its index (i).
+
+// Add the current number to currentSum.
+
+// Check and Update Storage Structure
+
+// If the currentSum - target exists in the storage structure:
+
+// Return an array containing the index of that sum plus 1 and the current index (i).
+
+// Else:
+
+// Store the currentSum and its index (i) in the storage structure.
+
+// For the Map solution: Use .has() to check for existence and .get() to fetch the index. Update using .set().
+
+// For the Object solution: Use .hasOwnProperty() to check for existence and bracket notation to fetch and update.
+
+// Return Result
+
+// If no such subarray sum equals the target, return an empty array.
 function subarraySum(nums, target) {
+  const sums = new Map();
+
+  sums.set(0, -1);
+  let currSum = 0;
   for (let i = 0; i < nums.length; i++) {
-    const num = nums[i];
-    goal = target - num;
+    currSum += nums[i];
 
-    for (let j = i, sum = 0; j < nums.length; j++) {
-      sum += nums[j];
-      console.log(sum);
-
-      if (sum === target) {
-        return [i, j];
-      }
-
-      if (sum > target) {
-        break;
-      }
+    if (sums.has(currSum - target)) {
+      return [sums.get(currSum - target), i];
     }
+
+    sums.set(currSum, i);
   }
 
   return [];
 }
-
-console.log(subarraySum([1, 2, 3], 3));
