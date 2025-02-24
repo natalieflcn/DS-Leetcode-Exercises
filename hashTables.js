@@ -105,33 +105,23 @@ function firstNonRepeatingChar(string) {
 function groupAnagrams(strings) {
   const anagramGroups = new Map();
   const chars = [];
-  const solutions = [];
 
   for (string in strings) {
-    let str = "";
     chars.push([...strings[string]]);
 
     chars[string].sort();
 
-    str = chars[string].join();
+    let str = chars[string].join();
     chars[string] = str;
-  }
 
-  for (let i = 0; i < strings.length; i++) {
-    if (!anagramGroups.has(chars[i])) {
+    if (!anagramGroups.has(chars[string])) {
       //If anagram doesn't exist
-      anagramGroups.set(chars[i], []);
+      anagramGroups.set(chars[string], []);
     }
-    anagramGroups.get(chars[i]).push(strings[i]);
+    anagramGroups.get(chars[string]).push(strings[string]);
   }
 
-  anagramGroups.forEach((value, key) => {
-    solutions.push(value);
-  });
-
-  console.log(solutions);
-
-  return solutions;
+  return Array.from(anagramGroups.values());
 }
 console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
 
