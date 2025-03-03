@@ -87,108 +87,72 @@ class LinkedList {
     let currNode = this.head;
 
     while (sortedUntil !== currNode.next) {
-      if (currNode > currNode.next) {
-        let temp = currNode.value;
-        currNode.value = currNode.next.value;
-        currNode.next.value = temp;
+      while (currNode.next !== sortedUntil) {
+        if (currNode.value > currNode.next.value) {
+          let temp = currNode.value;
+          currNode.value = currNode.next.value;
+          currNode.next.value = temp;
+        }
+        currNode = currNode.next;
       }
-
       sortedUntil = currNode;
+      currNode = this.head;
     }
   }
+
+  // 2) Selection Sort of LL ( ** Interview Question)
+  // This method will sort the linked list in ascending order using the Selection Sort algorithm.
+
+  // Here is a brief overview of the steps involved in implementing the selection sort algorithm:
+
+  // Check if the length of the linked list is less than 2. If it is, the list is already sorted, so the method should return immediately.
+
+  // Initialize a Node object current to the head of the list.
+
+  // Set up a while loop that continues as long as current.next is not null.
+
+  // Within this loop, set smallest to current and innerCurrent to the next node in the list.
+
+  // While innerCurrent is not null, if innerCurrent's value is less than smallest's value, set smallest to innerCurrent. Then, advance innerCurrent to the next node.
+
+  // After going through all nodes in the unsorted region, if smallest is not current, swap the values in smallest and current.
+
+  // Move current to the next node and repeat the process until the entire list is sorted.
+
+  // At the end of the sort, update the tail of the list to current.
+
+  selectionSort() {
+    if (this.length < 2) return;
+
+    let current = this.head;
+    while (current.next !== null) {
+      let smallest = current;
+      let innerCurrent = current.next;
+
+      while (innerCurrent !== null) {
+        if (innerCurrent.value < smallest.value) {
+          smallest = innerCurrent;
+        }
+        innerCurrent = innerCurrent.next;
+      }
+
+      if (smallest !== current) {
+        let temp = smallest.value;
+        smallest.value = current.value;
+        current.value = temp;
+      }
+
+      current = current.next;
+    }
+
+    this.tail = current;
+  }
+
+  // 3) Insertion Sort of LL ( ** Interview Question)
+
+  // The insertionSort() method should sort the linked list in place by repeatedly inserting each unsorted node into its correct position in the sorted part of the list.  If the length of the linked list is less than 2, the method should simply return because the list is already sorted.  After the sort, the method should update the head and tail pointers of the linked list to point to the first and last nodes, respectively.
+
+  // The implementation should start with a sortedListHead variable that initially points to the head of the list, and a unsortedListHead variable that initially points to the second node in the list (if it exists).  The method should then iterate through the unsorted part of the list and insert each node into its correct position in the sorted part of the list.
+
+  // If a node in the unsorted part of the list is less than the head of the sorted part of the list, it should become the new head of the sorted list. Otherwise, the method should iterate through the sorted part of the list using a searchPointer variable until it finds the correct position to insert the node.  The node should then be inserted into the sorted list by updating the next reference of the previous node to point to the new node, and the next reference of the new node to point to the next node in the sorted part of the list.
 }
-
-// ------------------------------------
-//  Sort descending list
-// ------------------------------------
-const list1 = new LinkedList(4);
-list1.push(3);
-list1.push(2);
-list1.push(1);
-console.log("Sort descending list:");
-list1.printList(); // Should print: 4 -> 3 -> 2 -> 1
-list1.bubbleSort();
-list1.printList(); // Should print: 1 -> 2 -> 3 -> 4
-console.log("---------------");
-
-// ------------------------------------
-//  Sort already sorted list
-// ------------------------------------
-const list2 = new LinkedList(1);
-list2.push(2);
-console.log("Sort already sorted list:");
-list2.printList(); // Should print: 1 -> 2
-list2.bubbleSort();
-list2.printList(); // Should print: 1 -> 2
-console.log("---------------");
-
-// ------------------------------------
-//  Sort list with random elements
-// ------------------------------------
-const list3 = new LinkedList(3);
-list3.push(1);
-list3.push(4);
-list3.push(2);
-console.log("Sort list with random elements:");
-list3.printList(); // Should print: 3 -> 1 -> 4 -> 2
-list3.bubbleSort();
-list3.printList(); // Should print: 1 -> 2 -> 3 -> 4
-console.log("---------------");
-
-// ------------------------------------
-//  Sort list with duplicate elements
-// ------------------------------------
-const list4 = new LinkedList(3);
-list4.push(3);
-list4.push(2);
-list4.push(2);
-console.log("Sort list with duplicate elements:");
-list4.printList(); // Should print: 3 -> 3 -> 2 -> 2
-list4.bubbleSort();
-list4.printList(); // Should print: 2 -> 2 -> 3 -> 3
-console.log("---------------");
-
-// ------------------------------------
-//  Sort single-element list
-// ------------------------------------
-const list5 = new LinkedList(1);
-console.log("Sort single-element list:");
-list5.printList(); // Should print: 1
-list5.bubbleSort();
-list5.printList(); // Should print: 1
-console.log("---------------");
-
-// ------------------------------------
-//  Sort list with negative numbers
-// ------------------------------------
-const list6 = new LinkedList(-1);
-list6.push(-2);
-list6.push(1);
-console.log("Sort list with negative numbers:");
-list6.printList(); // Should print: -1 -> -2 -> 1
-list6.bubbleSort();
-list6.printList(); // Should print: -2 -> -1 -> 1
-console.log("---------------");
-
-// ------------------------------------
-//  Sort list with zeros
-// ------------------------------------
-const list7 = new LinkedList(0);
-list7.push(0);
-list7.push(1);
-console.log("Sort list with zeros:");
-list7.printList(); // Should print: 0 -> 0 -> 1
-list7.bubbleSort();
-list7.printList(); // Should print: 0 -> 0 -> 1
-console.log("---------------");
-
-// ------------------------------------
-//  Sort empty list
-// ------------------------------------
-const list8 = new LinkedList(1);
-list8.makeEmpty();
-console.log("Sort empty list:");
-list8.printList(); // Should print: empty
-list8.bubbleSort();
-list8.printList(); // Should print: empty
-console.log("---------------");
