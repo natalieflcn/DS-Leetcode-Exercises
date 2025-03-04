@@ -207,99 +207,110 @@ class LinkedList {
     }
     this.tail = temp;
   }
+
+  // 4) LL: Merge Two Sorted Lists ( ** Interview Question)
+
+  // The elements in both lists are assumed to be in ascending order, but the input lists themselves do not need to be sorted.
+
+  //   The merge method works by first obtaining the head node of the 'otherList' and storing it in a local variable named otherHead.
+  // A new dummy node is created, initialized with a value of 0. This dummy node serves as the temporary head of the merged list.
+  // A variable called current is set to the dummy node. This variable is used to traverse and construct the merged list.
+  // The method iterates through both the current list (this.head) and the other list (otherHead). It appends the node with the smaller value to the merged list and moves the head of that list to its next node.
+  // The current variable is updated to point to the last node in the merged list.
+  // If either of the original lists still has remaining nodes, these are appended to the end of the merged list.
+  // The head of the current list is updated to point to the node next to the dummy node, effectively removing the dummy node from the list.
+  // The length of the current list (this.length) is updated to include the length of the merged list.
+
+  merge(otherList) {
+    let otherHead = otherList.head;
+    let dummyNode = new Node(0);
+
+    let current = dummyNode;
+
+    while (otherHead !== null && this.head !== null) {
+      if (otherHead.value < this.head.value) {
+        current.next = otherHead;
+        otherHead = otherHead.next;
+      } else {
+        current.next = this.head;
+        this.head = this.head.next;
+      }
+      current = current.next;
+      current.next = null;
+    }
+
+    if (this.head !== null) {
+      current.next = this.head;
+    }
+
+    if (otherList.head !== null) {
+      current.next = otherHead;
+    }
+    console.log(dummyNode);
+
+    this.head = dummyNode.next;
+
+    return;
+  }
 }
 
 // ------------------------------------
-//  Sort descending list
+//  Merge two sorted lists
 // ------------------------------------
-const list1 = new LinkedList(4);
+const list1 = new LinkedList(1);
 list1.push(3);
-list1.push(2);
-list1.push(1);
-console.log("Sort descending list:");
-list1.printList(); // Should print: 4 -> 3 -> 2 -> 1
-list1.insertionSort();
-list1.printList(); // Should print: 1 -> 2 -> 3 -> 4
+list1.push(5);
+const list2 = new LinkedList(2);
+list2.push(4);
+list2.push(6);
+console.log("Merge two sorted lists:");
+list1.printList(); // Should print: 1 -> 3 -> 5
+list2.printList(); // Should print: 2 -> 4 -> 6
+list1.merge(list2);
+list1.printList(); // Should print: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 console.log("---------------");
 
 // ------------------------------------
-//  Sort already sorted list
-// ------------------------------------
-const list2 = new LinkedList(1);
-list2.push(2);
-console.log("Sort already sorted list:");
-list2.printList(); // Should print: 1 -> 2
-list2.insertionSort();
-list2.printList(); // Should print: 1 -> 2
-console.log("---------------");
-
-// ------------------------------------
-//  Sort list with random elements
-// ------------------------------------
-const list3 = new LinkedList(3);
-list3.push(1);
-list3.push(4);
-list3.push(2);
-console.log("Sort list with random elements:");
-list3.printList(); // Should print: 3 -> 1 -> 4 -> 2
-list3.insertionSort();
-list3.printList(); // Should print: 1 -> 2 -> 3 -> 4
-console.log("---------------");
-
-// ------------------------------------
-//  Sort list with duplicate elements
-// ------------------------------------
-const list4 = new LinkedList(3);
-list4.push(3);
-list4.push(2);
-list4.push(2);
-console.log("Sort list with duplicate elements:");
-list4.printList(); // Should print: 3 -> 3 -> 2 -> 2
-list4.insertionSort();
-list4.printList(); // Should print: 2 -> 2 -> 3 -> 3
-console.log("---------------");
-
-// ------------------------------------
-//  Sort single-element list
+//  Merge lists with duplicates
 // ------------------------------------
 const list5 = new LinkedList(1);
-console.log("Sort single-element list:");
-list5.printList(); // Should print: 1
-list5.insertionSort();
-list5.printList(); // Should print: 1
+list5.push(2);
+list5.push(3);
+const list6 = new LinkedList(1);
+list6.push(2);
+list6.push(3);
+console.log("Merge lists with duplicates:");
+list5.printList(); // Should print: 1 -> 2 -> 3
+list6.printList(); // Should print: 1 -> 2 -> 3
+list5.merge(list6);
+list5.printList(); // Should print: 1 -> 1 -> 2 -> 2 -> 3 -> 3
 console.log("---------------");
 
 // ------------------------------------
-//  Sort list with negative numbers
+//  Merge lists with negative numbers
 // ------------------------------------
-const list6 = new LinkedList(-1);
-list6.push(-2);
-list6.push(1);
-console.log("Sort list with negative numbers:");
-list6.printList(); // Should print: -1 -> -2 -> 1
-list6.insertionSort();
-list6.printList(); // Should print: -2 -> -1 -> 1
-console.log("---------------");
-
-// ------------------------------------
-//  Sort list with zeros
-// ------------------------------------
-const list7 = new LinkedList(0);
+const list7 = new LinkedList(-1);
 list7.push(0);
-list7.push(1);
-console.log("Sort list with zeros:");
-list7.printList(); // Should print: 0 -> 0 -> 1
-list7.insertionSort();
-list7.printList(); // Should print: 0 -> 0 -> 1
+const list8 = new LinkedList(-2);
+list8.push(-1);
+console.log("Merge lists with negative numbers:");
+list7.printList(); // Should print: -1 -> 0
+list8.printList(); // Should print: -2 -> -1
+list7.merge(list8);
+list7.printList(); // Should print: -2 -> -1 -> -1 -> 0
 console.log("---------------");
 
 // ------------------------------------
-//  Sort empty list
+//  Merge lists where one is larger
 // ------------------------------------
-const list8 = new LinkedList(1);
-list8.makeEmpty();
-console.log("Sort empty list:");
-list8.printList(); // Should print: empty
-list8.insertionSort();
-list8.printList(); // Should print: empty
+const list9 = new LinkedList(1);
+list9.push(2);
+const list10 = new LinkedList(3);
+list10.push(4);
+list10.push(5);
+console.log("Merge lists where one is larger:");
+list9.printList(); // Should print: 1 -> 2
+list10.printList(); // Should print: 3 -> 4 -> 5
+list9.merge(list10);
+list9.printList(); // Should print: 1 -> 2 -> 3 -> 4 -> 5
 console.log("---------------");
