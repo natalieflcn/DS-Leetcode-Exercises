@@ -32,72 +32,100 @@ function findMaxMin(myArray) {
   return [max, min];
 }
 
+// 82) FIND LONGEST STRING
+// The findLongestString function aims to find the longest string from an array of strings (stringArray).
+
+// The function returns the longest string present in the given array.
+
+// Constraints:
+
+// The array can be empty or contain any number of elements.
+
+// Elements in the array must be strings.
+
+// If there are multiple strings of the same longest length, the function returns the first one it encounters.
+
+function findLongestString(stringArray) {
+  if (stringArray.length === 0) return "";
+
+  let max = -1;
+  let index = -1;
+
+  for (let i = 0; i < stringArray.length; i++) {
+    if (stringArray[i].length > max) {
+      max = stringArray[i].length;
+      index = i;
+    }
+  }
+
+  return stringArray[index];
+}
 // ------------------------------------
-//  Test array with positive numbers
+//  Test array with short strings
 // ------------------------------------
-let arrPos = [1, 2, 3, 4, 5];
-console.log("Test array with positive numbers:");
-console.log("Array:", arrPos); // Should print: [1, 2, 3, 4, 5]
-let resultPos = findMaxMin(arrPos);
-console.log("Max and Min:", resultPos); // Should print: [5, 1]
+let shortStrs = ["hi", "yo", "hey"];
+console.log("Test array with short strings:");
+console.log("Array:", shortStrs); // Should print: ["hi", "yo", "hey"]
+let resultShort = findLongestString(shortStrs);
+console.log("Longest String:", resultShort); // Should print: "hey"
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with negative numbers
+//  Test array with long strings
 // ------------------------------------
-let arrNeg = [-1, -2, -3, -4];
-console.log("Test array with negative numbers:");
-console.log("Array:", arrNeg); // Should print: [-1, -2, -3, -4]
-let resultNeg = findMaxMin(arrNeg);
-console.log("Max and Min:", resultNeg); // Should print: [-1, -4]
+let longStrs = ["hello", "goodbye", "supercalifragilisticexpialidocious"];
+console.log("Test array with long strings:");
+console.log("Array:", longStrs); // Should print: ["hello", "goodbye", "supercalifragilisticexpialidocious"]
+let resultLong = findLongestString(longStrs);
+console.log("Longest String:", resultLong); // Should print: "supercalifragilisticexpialidocious"
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with both positive and negative numbers
+//  Test array with varying length strings
 // ------------------------------------
-let arrMixed = [-1, 0, 1];
-console.log("Test array with both positive and negative numbers:");
-console.log("Array:", arrMixed); // Should print: [-1, 0, 1]
-let resultMixed = findMaxMin(arrMixed);
-console.log("Max and Min:", resultMixed); // Should print: [1, -1]
+let variedStrs = ["short", "longer", "longest"];
+console.log("Test array with varying length strings:");
+console.log("Array:", variedStrs); // Should print: ["short", "longer", "longest"]
+let resultVaried = findLongestString(variedStrs);
+console.log("Longest String:", resultVaried); // Should print: "longest"
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with all same numbers
+//  Test array with all same length strings
 // ------------------------------------
-let arrSame = [2, 2, 2, 2];
-console.log("Test array with all same numbers:");
-console.log("Array:", arrSame); // Should print: [2, 2, 2, 2]
-let resultSame = findMaxMin(arrSame);
-console.log("Max and Min:", resultSame); // Should print: [2, 2]
+let sameStrs = ["same", "size", "test"];
+console.log("Test array with all same length strings:");
+console.log("Array:", sameStrs); // Should print: ["same", "size", "test"]
+let resultSame = findLongestString(sameStrs);
+console.log("Longest String:", resultSame); // Should print: "same" (or "size" or "test")
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with one number
+//  Test array with one string
 // ------------------------------------
-let arrOne = [7];
-console.log("Test array with one number:");
-console.log("Array:", arrOne); // Should print: [7]
-let resultOne = findMaxMin(arrOne);
-console.log("Max and Min:", resultOne); // Should print: [7, 7]
+let oneStr = ["single"];
+console.log("Test array with one string:");
+console.log("Array:", oneStr); // Should print: ["single"]
+let resultOne = findLongestString(oneStr);
+console.log("Longest String:", resultOne); // Should print: "single"
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with decimals
+//  Test array with empty strings
 // ------------------------------------
-let arrDec = [1.5, 2.5, 0.5];
-console.log("Test array with decimals:");
-console.log("Array:", arrDec); // Should print: [1.5, 2.5, 0.5]
-let resultDec = findMaxMin(arrDec);
-console.log("Max and Min:", resultDec); // Should print: [2.5, 0.5]
+let emptyStrs = ["", "", ""];
+console.log("Test array with empty strings:");
+console.log("Array:", emptyStrs); // Should print: ["", "", ""]
+let resultEmpty = findLongestString(emptyStrs);
+console.log("Longest String:", resultEmpty); // Should print: ""
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with zeros
+//  Test array with numbers as strings
 // ------------------------------------
-let arrZero = [0, 0, 0];
-console.log("Test array with zeros:");
-console.log("Array:", arrZero); // Should print: [0, 0, 0]
-let resultZero = findMaxMin(arrZero);
-console.log("Max and Min:", resultZero); // Should print: [0, 0]
+let numStrs = ["123", "1234", "12"];
+console.log("Test array with numbers as strings:");
+console.log("Array:", numStrs); // Should print: ["123", "1234", "12"]
+let resultNum = findLongestString(numStrs);
+console.log("Longest String:", resultNum); // Should print: "1234"
 console.log("---------------");
