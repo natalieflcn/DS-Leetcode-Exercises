@@ -60,72 +60,103 @@ function findLongestString(stringArray) {
 
   return stringArray[index];
 }
+
+// 84) Array: Max Profit ( ** Interview Question)
+// The function maxProfit aims to find the maximum profit one could achieve by buying and selling a stock once, given an array of stock prices (prices).
+
+function maxProfit(prices) {
+  if (prices.length === 0) return 0;
+
+  let minimum = prices[0];
+
+  let index = -1;
+
+  for (let price in prices) {
+    if (prices[price] < minimum) {
+      minimum = prices[price];
+      index = price;
+    }
+  }
+  let maximum = minimum;
+
+  let temp = prices.splice(index);
+  for (let sell of temp) {
+    if (sell > maximum) {
+      maximum = sell;
+    }
+  }
+
+  const profit = maximum - minimum > 0 ? maximum - minimum : 0;
+
+  return profit;
+}
+
 // ------------------------------------
-//  Test array with short strings
+//  Test array with increasing prices
 // ------------------------------------
-let shortStrs = ["hi", "yo", "hey"];
-console.log("Test array with short strings:");
-console.log("Array:", shortStrs); // Should print: ["hi", "yo", "hey"]
-let resultShort = findLongestString(shortStrs);
-console.log("Longest String:", resultShort); // Should print: "hey"
+console.log("Increasing prices:");
+let increasingPrices = [1, 2, 3, 4, 5];
+console.log("Array:", increasingPrices);
+console.log("Expected Max Profit: 4");
+console.log("Actual Max Profit:", maxProfit(increasingPrices));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with long strings
+//  Test array with decreasing prices
 // ------------------------------------
-let longStrs = ["hello", "goodbye", "supercalifragilisticexpialidocious"];
-console.log("Test array with long strings:");
-console.log("Array:", longStrs); // Should print: ["hello", "goodbye", "supercalifragilisticexpialidocious"]
-let resultLong = findLongestString(longStrs);
-console.log("Longest String:", resultLong); // Should print: "supercalifragilisticexpialidocious"
+console.log("Decreasing prices:");
+let decreasingPrices = [5, 4, 3, 2, 1];
+console.log("Array:", decreasingPrices);
+console.log("Expected Max Profit: 0");
+console.log("Actual Max Profit:", maxProfit(decreasingPrices));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with varying length strings
+//  Test array with random prices
 // ------------------------------------
-let variedStrs = ["short", "longer", "longest"];
-console.log("Test array with varying length strings:");
-console.log("Array:", variedStrs); // Should print: ["short", "longer", "longest"]
-let resultVaried = findLongestString(variedStrs);
-console.log("Longest String:", resultVaried); // Should print: "longest"
+console.log("Random prices:");
+let randomPrices = [3, 1, 4, 1, 5, 9, 2, 6, 5];
+console.log("Array:", randomPrices);
+console.log("Expected Max Profit: 8");
+console.log("Actual Max Profit:", maxProfit(randomPrices));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with all same length strings
+//  Test array with same prices
 // ------------------------------------
-let sameStrs = ["same", "size", "test"];
-console.log("Test array with all same length strings:");
-console.log("Array:", sameStrs); // Should print: ["same", "size", "test"]
-let resultSame = findLongestString(sameStrs);
-console.log("Longest String:", resultSame); // Should print: "same" (or "size" or "test")
+console.log("Same prices:");
+let samePrices = [2, 2, 2, 2, 2];
+console.log("Array:", samePrices);
+console.log("Expected Max Profit: 0");
+console.log("Actual Max Profit:", maxProfit(samePrices));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with one string
+//  Test empty array
 // ------------------------------------
-let oneStr = ["single"];
-console.log("Test array with one string:");
-console.log("Array:", oneStr); // Should print: ["single"]
-let resultOne = findLongestString(oneStr);
-console.log("Longest String:", resultOne); // Should print: "single"
+console.log("Empty array:");
+let emptyPrices = [];
+console.log("Array:", emptyPrices);
+console.log("Expected Max Profit: 0");
+console.log("Actual Max Profit:", maxProfit(emptyPrices));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with empty strings
+//  Test array with negative prices
 // ------------------------------------
-let emptyStrs = ["", "", ""];
-console.log("Test array with empty strings:");
-console.log("Array:", emptyStrs); // Should print: ["", "", ""]
-let resultEmpty = findLongestString(emptyStrs);
-console.log("Longest String:", resultEmpty); // Should print: ""
+console.log("Negative prices:");
+let negativePrices = [-1, -2, -3, -4];
+console.log("Array:", negativePrices);
+console.log("Expected Max Profit: 0");
+console.log("Actual Max Profit:", maxProfit(negativePrices));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with numbers as strings
+//  Test array with mixed prices
 // ------------------------------------
-let numStrs = ["123", "1234", "12"];
-console.log("Test array with numbers as strings:");
-console.log("Array:", numStrs); // Should print: ["123", "1234", "12"]
-let resultNum = findLongestString(numStrs);
-console.log("Longest String:", resultNum); // Should print: "1234"
+console.log("Mixed prices:");
+let mixedPrices = [1, 4, 2, -1, 6];
+console.log("Array:", mixedPrices);
+console.log("Expected Max Profit: 7");
+console.log("Actual Max Profit:", maxProfit(mixedPrices));
 console.log("---------------");
