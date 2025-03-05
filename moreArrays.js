@@ -91,72 +91,103 @@ function maxProfit(prices) {
   return profit;
 }
 
+// 85) Array: Rotate ( ** Interview Question)
+// The function rotate modifies an array (nums) by rotating its elements to the right by k steps.
+
+// It does so in-place without allocating extra space.
+
+// Constraints:
+
+// The array can be empty or contain any number of elements.
+
+// The array contains integers.
+
+// The value of k can be positive, negative, or zero.
+
+function rotate(nums, k) {
+  for (let i = k; k > 0; k--) {
+    let temp = nums[nums.length - 1];
+
+    for (let j = nums.length - 1; j > 0; j--) {
+      nums[j] = nums[j - 1];
+    }
+    nums[0] = temp;
+  }
+}
+
 // ------------------------------------
-//  Test array with increasing prices
+//  Test array rotation by 1
 // ------------------------------------
-console.log("Increasing prices:");
-let increasingPrices = [1, 2, 3, 4, 5];
-console.log("Array:", increasingPrices);
-console.log("Expected Max Profit: 4");
-console.log("Actual Max Profit:", maxProfit(increasingPrices));
+console.log("Rotate by 1:");
+let rotate1 = [1, 2, 3, 4, 5];
+console.log("Before:         ", rotate1.join(", "));
+rotate(rotate1, 1);
+console.log("Expected After:  5, 1, 2, 3, 4");
+console.log("Actual After:   ", rotate1.join(", "));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with decreasing prices
+//  Test array rotation by array length
 // ------------------------------------
-console.log("Decreasing prices:");
-let decreasingPrices = [5, 4, 3, 2, 1];
-console.log("Array:", decreasingPrices);
-console.log("Expected Max Profit: 0");
-console.log("Actual Max Profit:", maxProfit(decreasingPrices));
+console.log("Rotate by array length:");
+let rotateLen = [1, 2, 3];
+console.log("Before:         ", rotateLen.join(", "));
+rotate(rotateLen, 3);
+console.log("Expected After:  1, 2, 3");
+console.log("Actual After:   ", rotateLen.join(", "));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with random prices
+//  Test array rotation by 0
 // ------------------------------------
-console.log("Random prices:");
-let randomPrices = [3, 1, 4, 1, 5, 9, 2, 6, 5];
-console.log("Array:", randomPrices);
-console.log("Expected Max Profit: 8");
-console.log("Actual Max Profit:", maxProfit(randomPrices));
+console.log("Rotate by 0:");
+let rotateZero = [4, 3, 2, 1];
+console.log("Before:         ", rotateZero.join(", "));
+rotate(rotateZero, 0);
+console.log("Expected After:  4, 3, 2, 1");
+console.log("Actual After:   ", rotateZero.join(", "));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with same prices
-// ------------------------------------
-console.log("Same prices:");
-let samePrices = [2, 2, 2, 2, 2];
-console.log("Array:", samePrices);
-console.log("Expected Max Profit: 0");
-console.log("Actual Max Profit:", maxProfit(samePrices));
-console.log("---------------");
-
-// ------------------------------------
-//  Test empty array
+//  Test empty array rotation
 // ------------------------------------
 console.log("Empty array:");
-let emptyPrices = [];
-console.log("Array:", emptyPrices);
-console.log("Expected Max Profit: 0");
-console.log("Actual Max Profit:", maxProfit(emptyPrices));
+let rotateEmpty = [];
+console.log("Before:         ", rotateEmpty.join(", "));
+rotate(rotateEmpty, 1);
+console.log("Expected After:  ");
+console.log("Actual After:   ", rotateEmpty.join(", "));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with negative prices
+//  Test array rotation with negative k
 // ------------------------------------
-console.log("Negative prices:");
-let negativePrices = [-1, -2, -3, -4];
-console.log("Array:", negativePrices);
-console.log("Expected Max Profit: 0");
-console.log("Actual Max Profit:", maxProfit(negativePrices));
+console.log("Negative k value:");
+let rotateNeg = [5, 6, 7, 8];
+console.log("Before:         ", rotateNeg.join(", "));
+rotate(rotateNeg, -1);
+console.log("Expected After:  6, 7, 8, 5");
+console.log("Actual After:   ", rotateNeg.join(", "));
 console.log("---------------");
 
 // ------------------------------------
-//  Test array with mixed prices
+//  Test array with all same elements
 // ------------------------------------
-console.log("Mixed prices:");
-let mixedPrices = [1, 4, 2, -1, 6];
-console.log("Array:", mixedPrices);
-console.log("Expected Max Profit: 7");
-console.log("Actual Max Profit:", maxProfit(mixedPrices));
+console.log("All same elements:");
+let rotateSame = [2, 2, 2, 2];
+console.log("Before:         ", rotateSame.join(", "));
+rotate(rotateSame, 2);
+console.log("Expected After:  2, 2, 2, 2");
+console.log("Actual After:   ", rotateSame.join(", "));
+console.log("---------------");
+
+// ------------------------------------
+//  Test array rotation with k larger than array size
+// ------------------------------------
+console.log("k larger than array size:");
+let rotateLargeK = [1, 2];
+console.log("Before:         ", rotateLargeK.join(", "));
+rotate(rotateLargeK, 3);
+console.log("Expected After:  2, 1");
+console.log("Actual After:   ", rotateLargeK.join(", "));
 console.log("---------------");
