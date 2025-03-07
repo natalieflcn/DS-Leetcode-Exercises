@@ -21,102 +21,6 @@ function removeElement(nums, val) {
   return i;
 }
 
-// ------------------------------------
-//  Test empty array
-// ------------------------------------
-let arrEmpty = [];
-console.log("Test empty array:");
-console.log("Before:", arrEmpty); // Should print: []
-let lenEmpty = removeElement(arrEmpty, 3);
-console.log("After:", arrEmpty.slice(0, lenEmpty)); // Should print: []
-console.log("Length:", lenEmpty); // Should print: 0
-console.log("---------------");
-
-// ------------------------------------
-//  Test array without the element to remove
-// ------------------------------------
-let arrNoElem = [1, 2, 3, 4];
-console.log("Test array without the element to remove:");
-console.log("Before:", arrNoElem); // Should print: [1, 2, 3, 4]
-let lenNoElem = removeElement(arrNoElem, 5);
-console.log("After:", arrNoElem.slice(0, lenNoElem)); // Should print: [1, 2, 3, 4]
-console.log("Length:", lenNoElem); // Should print: 4
-console.log("---------------");
-
-// ------------------------------------
-//  Test array with one type of element to remove
-// ------------------------------------
-let arrOneType = [3, 3, 3, 3];
-console.log("Test array with one type of element to remove:");
-console.log("Before:", arrOneType); // Should print: [3, 3, 3, 3]
-let lenOneType = removeElement(arrOneType, 3);
-console.log("After:", arrOneType.slice(0, lenOneType)); // Should print: []
-console.log("Length:", lenOneType); // Should print: 0
-console.log("---------------");
-
-// ------------------------------------
-//  Test array with the element to remove scattered
-// ------------------------------------
-let arrScattered = [1, 2, 3, 4, 2, 2];
-console.log("Test array with the element to remove scattered:");
-console.log("Before:", arrScattered); // Should print: [1, 2, 3, 4, 2, 2]
-let lenScattered = removeElement(arrScattered, 2);
-console.log("After:", arrScattered.slice(0, lenScattered)); // Should print: [1, 3, 4]
-console.log("Length:", lenScattered); // Should print: 3
-console.log("---------------");
-
-// ------------------------------------
-//  Test array with all unique elements
-// ------------------------------------
-let arrUnique = [1, 2, 3, 4];
-console.log("Test array with all unique elements:");
-console.log("Before:", arrUnique); // Should print: [1, 2, 3, 4]
-let lenUnique = removeElement(arrUnique, 3);
-console.log("After:", arrUnique.slice(0, lenUnique)); // Should print: [1, 2, 4]
-console.log("Length:", lenUnique); // Should print: 3
-console.log("---------------");
-
-// ------------------------------------
-//  Test array with negative numbers
-// ------------------------------------
-let arrNegative = [-1, -2, -3, -4];
-console.log("Test array with negative numbers:");
-console.log("Before:", arrNegative); // Should print: [-1, -2, -3, -4]
-let lenNegative = removeElement(arrNegative, -2);
-console.log("After:", arrNegative.slice(0, lenNegative)); // Should print: [-1, -3, -4]
-console.log("Length:", lenNegative); // Should print: 3
-console.log("---------------");
-
-// ------------------------------------
-//  Test array with zeros
-// ------------------------------------
-let arrZeros = [0, 0, 0, 0];
-console.log("Test array with zeros:");
-console.log("Before:", arrZeros); // Should print: [0, 0, 0, 0]
-let lenZeros = removeElement(arrZeros, 0);
-console.log("After:", arrZeros.slice(0, lenZeros)); // Should print: []
-console.log("Length:", lenZeros); // Should print: 0
-console.log("---------------");
-
-// 81) FIND MAX MIN
-
-function findMaxMin(myArray) {
-  let max = myArray[0];
-  let min = myArray[0];
-
-  for (let i = 0; i < myArray.length; i++) {
-    if (myArray[i] > max) {
-      max = myArray[i];
-    }
-
-    if (myArray[i] < min) {
-      min = myArray[i];
-    }
-  }
-
-  return [max, min];
-}
-
 // 82) FIND LONGEST STRING
 // The findLongestString function aims to find the longest string from an array of strings (stringArray).
 
@@ -210,3 +114,108 @@ function maxSubarray(nums) {
 
   return maxSum;
 }
+
+//83) Array: Remove Duplicates ( ** Interview Question)
+// The removeDuplicates function aims to remove duplicates from a sorted array of integers (nums) and returns the new length of the array.
+// The function modifies the input array in-place such that each element appears only once and returns the new length.
+
+// Constraints:
+
+// The input array is sorted in ascending order.
+
+// The array can be empty or contain any number of elements.
+
+// Elements in the array are integers.
+
+// The function should not allocate extra space; it must do this by modifying the input array in-place (this means you cannot use another data structure like a set).
+
+// Parameters:
+
+// nums: A sorted array of integers.
+
+// Returns:
+
+// The function returns the new length of the array after removing duplicates.
+
+// If nums is empty, the function returns 0.
+
+function removeDuplicates(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === arr[i - 1]) {
+      console.log("if statement running");
+      for (let j = i; j < arr.length - 1; j++) {
+        arr[j] = arr[j + 1];
+      }
+      arr.pop();
+      i = 0;
+    }
+  }
+
+  return arr.length;
+}
+
+// ------------------------------------
+//  Test array with no duplicates
+// ------------------------------------
+let noDups = [1, 2, 3, 4];
+console.log("Test array with no duplicates:");
+console.log("Before:", noDups);
+let lenNoDups = removeDuplicates(noDups);
+console.log("After:", noDups.slice(0, lenNoDups));
+console.log("Length:", lenNoDups);
+console.log("---------------");
+
+// ------------------------------------
+//  Test array with duplicates
+// ------------------------------------
+let withDups = [1, 1, 2, 2, 3];
+console.log("Test array with duplicates:");
+console.log("Before:", withDups);
+let lenWithDups = removeDuplicates(withDups);
+console.log("After:", withDups.slice(0, lenWithDups));
+console.log("Length:", lenWithDups);
+console.log("---------------");
+
+// ------------------------------------
+//  Test empty array
+// ------------------------------------
+let emptyArr = [];
+console.log("Test empty array:");
+console.log("Before:", emptyArr);
+let lenEmpty = removeDuplicates(emptyArr);
+console.log("After:", emptyArr.slice(0, lenEmpty));
+console.log("Length:", lenEmpty);
+console.log("---------------");
+
+// ------------------------------------
+//  Test array with all same numbers
+// ------------------------------------
+let allSame = [3, 3, 3];
+console.log("Test array with all same numbers:");
+console.log("Before:", allSame);
+let lenAllSame = removeDuplicates(allSame);
+console.log("After:", allSame.slice(0, lenAllSame));
+console.log("Length:", lenAllSame);
+console.log("---------------");
+
+// ------------------------------------
+//  Test array with negative numbers
+// ------------------------------------
+let negNumbers = [-1, -1, 0, 2, 2];
+console.log("Test array with negative numbers:");
+console.log("Before:", negNumbers);
+let lenNeg = removeDuplicates(negNumbers);
+console.log("After:", negNumbers.slice(0, lenNeg));
+console.log("Length:", lenNeg);
+console.log("---------------");
+
+// ------------------------------------
+//  Test array with one element
+// ------------------------------------
+let singleElem = [1];
+console.log("Test array with one element:");
+console.log("Before:", singleElem);
+let lenSingle = removeDuplicates(singleElem);
+console.log("After:", singleElem.slice(0, lenSingle));
+console.log("Length:", lenSingle);
+console.log("---------------");
