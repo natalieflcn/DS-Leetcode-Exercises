@@ -315,6 +315,149 @@ class LinkedList {
 
     return num;
   }
+
+  partitionList(x) {
+    let lessThan,
+      moreThan,
+      targetValue = undefined;
+    let currValue = this.head;
+
+    let lt,
+      mt = 0;
+
+    while (currValue !== null) {
+      console.log(
+        `lessThan is ${lessThan?.value} and moreThan is ${moreThan?.value} and targetValue is ${targetValue?.value} and currValue is ${currValue?.value}`
+      );
+
+      if (currValue.value < x) {
+        if (!lessThan) {
+          lessThan = currValue;
+          lt++;
+        } else {
+          let temp = lessThan;
+          for (let i = 0; i < lt; i++) {
+            temp = temp.next;
+          }
+          temp.next = currValue;
+          lt++;
+        }
+      } else if (currValue.value === x) {
+        targetValue = currValue;
+      } else if (currValue.value > x) {
+        if (!moreThan) {
+          moreThan = currValue;
+          mt++;
+        } else {
+          let temp = moreThan;
+          for (let i = 0; i < lt; i++) {
+            temp = temp.next;
+          }
+          temp.next = currValue;
+          mt++;
+        }
+      }
+
+      currValue = currValue.next;
+    }
+
+    // lessThan.next = null;
+    // moreThan.next = null;
+    // targetValue.next = null;
+
+    lessThan.next = targetValue;
+    targetValue.next = moreThan;
+  }
 }
 
-//DOUBLY LINKED LISTS
+// Helper function to create list from array
+function createListFromArray(arr) {
+  const ll = new LinkedList(arr[0]);
+  for (let i = 1; i < arr.length; i++) {
+    ll.push(arr[i]);
+  }
+  return ll;
+}
+
+// Helper function to compare list with array
+function listMatchesArray(ll, arr) {
+  let temp = ll.head;
+  let i = 0;
+  while (temp !== null && i < arr.length) {
+    if (temp.value !== arr[i]) {
+      return false;
+    }
+    temp = temp.next;
+    i++;
+  }
+  return temp === null && i === arr.length;
+}
+
+// Function to run a single test
+function runTest(testNum, description, ll, x, expectedArr) {
+  console.log("---------------------------------------");
+  console.log(`Test ${testNum}: ${description}`);
+  console.log("BEFORE: ");
+  ll.printList();
+  console.log("PARTITION: " + x);
+  ll.partitionList(x);
+  console.log("AFTER: ");
+  ll.printList();
+  console.log(listMatchesArray(ll, expectedArr) ? "PASS" : "FAIL");
+}
+
+// Test 1: Basic partition
+let ll1 = createListFromArray([1, 4, 3, 2, 5, 2]);
+runTest(1, "Basic partition", ll1, 3, [1, 2, 2, 4, 3, 5]);
+
+// Test 2: No elements to partition
+let ll2 = createListFromArray([4, 5, 6]);
+runTest(2, "No elements to partition", ll2, 3, [4, 5, 6]);
+
+// Test 3: All elements smaller
+let ll3 = createListFromArray([1, 2, 2]);
+runTest(3, "All elements smaller", ll3, 3, [1, 2, 2]);
+
+// Test 4: Single-element list
+let ll4 = createListFromArray([1]);
+runTest(4, "Single-element list", ll4, 3, [1]);
+
+// Test 5: All elements equal to partition
+let ll5 = createListFromArray([3, 3, 3]);
+runTest(5, "All elements equal to partition", ll5, 3, [3, 3, 3]);
+
+console.log("---------------------------------------");
+
+// 14) Implement a member function called partitionList(x) that partitions the linked list such that all nodes with values less than x come before nodes with values greater than or equal to x.
+
+// The original relative order of the nodes should be preserved.
+
+// Input: An integer x, the partition value.
+
+// Output: The function should modify the linked list in-place, such that all nodes with values less than x come before nodes with values greater than or equal to x.
+
+// Constraints:
+// You are not allowed to use any additional data structures (such as arrays) or modify the existing data structure.
+// You can only traverse the linked list once.
+// You can create temporary nodes to make the implementation simpler.
+
+// Example 1:
+// Input:
+// Linked List: 3 -> 8 -> 5 -> 10 -> 2 -> 1 x: 5
+
+// Output:
+// Linked List: 3 -> 2 -> 1 -> 8 -> "5" -> 10
+
+// Example 2:
+// Input:
+// Linked List: 1 -> 4 -> 3 -> 2 -> 5 -> 2 x: 3
+
+// Output:
+// Linked List: 1 -> 2 -> 2 -> 4 -> "3" -> 5
+
+// Tips:
+// While traversing the linked list, maintain two separate chains: one for values less than x and one for values greater than or equal to x.
+
+// Use dummy nodes to simplify the handling of the heads of these chains.
+
+// After processing the entire list, connect the two chains to get the desired arrangement.
