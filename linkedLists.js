@@ -316,57 +316,51 @@ class LinkedList {
     return num;
   }
 
+  // 6. Loop while current pointer is not null
+
+  //    a. If the value of the current node is less than x
+
+  //       i. Set the next of prev1 pointer to the current pointer
+
+  //       ii. Move prev1 pointer one step ahead in the list
+
+  //    b. Else
+
+  //       i. Set the next of prev2 pointer to the current pointer
+
+  //       ii. Move prev2 pointer one step ahead in the list
+
+  //    c. Move current pointer one step ahead in the list
+
+  // 7. Set the next of prev2 pointer to null
+
+  // 8. Set the next of prev1 pointer to the next of dummy2
+
+  // 9. Set the head of the list to the next of dummy1
   partitionList(x) {
-    let lessThan,
-      moreThan,
-      targetValue = undefined;
-    let currValue = this.head;
+    if (!this.head) return;
 
-    let lt,
-      mt = 0;
+    let lessThan = new Node(0);
+    let moreThan = new Node(0);
+    let lessTail = lessThan;
+    let moreTail = moreThan;
+    let currNode = this.head;
 
-    while (currValue !== null) {
-      console.log(
-        `lessThan is ${lessThan?.value} and moreThan is ${moreThan?.value} and targetValue is ${targetValue?.value} and currValue is ${currValue?.value}`
-      );
-
-      if (currValue.value < x) {
-        if (!lessThan) {
-          lessThan = currValue;
-          lt++;
-        } else {
-          let temp = lessThan;
-          for (let i = 0; i < lt; i++) {
-            temp = temp.next;
-          }
-          temp.next = currValue;
-          lt++;
-        }
-      } else if (currValue.value === x) {
-        targetValue = currValue;
-      } else if (currValue.value > x) {
-        if (!moreThan) {
-          moreThan = currValue;
-          mt++;
-        } else {
-          let temp = moreThan;
-          for (let i = 0; i < lt; i++) {
-            temp = temp.next;
-          }
-          temp.next = currValue;
-          mt++;
-        }
+    while (currNode !== null) {
+      if (currNode.value < x) {
+        lessTail.next = currNode;
+        lessTail = currNode;
+      } else if (currNode.value > x) {
+        moreTail.next = currNode;
+        moreTail = currNode;
       }
-
-      currValue = currValue.next;
+      currNode = currNode.next;
     }
 
-    // lessThan.next = null;
-    // moreThan.next = null;
-    // targetValue.next = null;
+    moreTail.next = null;
+    lessTail.next = moreThan.next;
 
-    lessThan.next = targetValue;
-    targetValue.next = moreThan;
+    this.head = lessThan.next;
   }
 }
 
